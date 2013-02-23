@@ -9,21 +9,22 @@
  * @property string $first_name
  * @property string $middle_name
  * @property string $last_name
- * @property integer $type_id
  * @property string $passport_number
  * @property string $driving_license_number
  * @property string $email
  * @property string $password
+ * @property string $note
  * @property string $date_create
  * @property string $date_update
+ * @property string $date_last_activity
+ * @property string $date_note_update
  *
  * The followings are the available model relations:
  * @property UserCopiesOfDriving[] $userCopiesOfDrivings
  * @property UserCopiesOfPassport[] $userCopiesOfPassports
- * @property UserNotes[] $userNotes
  * @property UserPhotos[] $userPhotoses
+ * @property UserRole[] $userRoles
  * @property UserTitles $title
- * @property UserTypes $type
  */
 class Users extends CActiveRecord
 {
@@ -53,12 +54,13 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, date_create, date_update', 'required'),
-			array('title_id, type_id', 'numerical', 'integerOnly'=>true),
-			array('first_name, middle_name, last_name, passport_number, driving_license_number, email, password', 'length', 'max'=>20),
+			array('email, password, note, date_create, date_update, date_last_activity, date_note_update', 'required'),
+			array('title_id', 'numerical', 'integerOnly'=>true),
+			array('first_name, middle_name, last_name, passport_number, driving_license_number, email', 'length', 'max'=>20),
+			array('password', 'length', 'max'=>60),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title_id, first_name, middle_name, last_name, type_id, passport_number, driving_license_number, email, password, date_create, date_update', 'safe', 'on'=>'search'),
+			array('id, title_id, first_name, middle_name, last_name, passport_number, driving_license_number, email, password, note, date_create, date_update, date_last_activity, date_note_update', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,10 +74,9 @@ class Users extends CActiveRecord
 		return array(
 			'userCopiesOfDrivings' => array(self::HAS_MANY, 'UserCopiesOfDriving', 'user_id'),
 			'userCopiesOfPassports' => array(self::HAS_MANY, 'UserCopiesOfPassport', 'user_id'),
-			'userNotes' => array(self::HAS_MANY, 'UserNotes', 'user_id'),
 			'userPhotoses' => array(self::HAS_MANY, 'UserPhotos', 'user_id'),
+			'userRoles' => array(self::HAS_MANY, 'UserRole', 'user_id'),
 			'title' => array(self::BELONGS_TO, 'UserTitles', 'title_id'),
-			'type' => array(self::BELONGS_TO, 'UserTypes', 'type_id'),
 		);
 	}
 
@@ -90,13 +91,15 @@ class Users extends CActiveRecord
 			'first_name' => 'First Name',
 			'middle_name' => 'Middle Name',
 			'last_name' => 'Last Name',
-			'type_id' => 'Type',
 			'passport_number' => 'Passport Number',
 			'driving_license_number' => 'Driving License Number',
 			'email' => 'Email',
 			'password' => 'Password',
+			'note' => 'Note',
 			'date_create' => 'Date Create',
 			'date_update' => 'Date Update',
+			'date_last_activity' => 'Date Last Activity',
+			'date_note_update' => 'Date Note Update',
 		);
 	}
 
@@ -116,13 +119,15 @@ class Users extends CActiveRecord
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('middle_name',$this->middle_name,true);
 		$criteria->compare('last_name',$this->last_name,true);
-		$criteria->compare('type_id',$this->type_id);
 		$criteria->compare('passport_number',$this->passport_number,true);
 		$criteria->compare('driving_license_number',$this->driving_license_number,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
+		$criteria->compare('note',$this->note,true);
 		$criteria->compare('date_create',$this->date_create,true);
 		$criteria->compare('date_update',$this->date_update,true);
+		$criteria->compare('date_last_activity',$this->date_last_activity,true);
+		$criteria->compare('date_note_update',$this->date_note_update,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -130,15 +135,30 @@ class Users extends CActiveRecord
 	}
 
 	/**
+	 * Checks if user have one of $roles.
+	 */
+	public function hasRole($roles)
+	{			
+		if (!is_array($roles))
+			$roles = explode(',', $roles);
+						
+		foreach($roles as $value)
+		{					
+			$role = Role::model()->findByName(trim($value));
+			
+			if($role != null && UserRole::model()->findByAttributes(array('user_id' => $this->id, 'role_id' => $role->id)) != null)
+				return true;		
+		}					
+		return false;	
+	}
+	
+	/**
 	 * Checks if the given password is correct.
 	 * @param string the password to be validated
 	 * @return boolean whether the password is valid
 	 */
 	public function validatePassword($password)
 	{
-		var_dump(crypt($password,$this->generateSalt()));
-		var_dump($this->password);
-		
 		return crypt($password,$this->password)===$this->password;
 	}
 		

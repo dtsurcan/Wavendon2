@@ -1,21 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "{{user_types}}".
+ * This is the model class for table "{{user_role}}".
  *
- * The followings are the available columns in table '{{user_types}}':
+ * The followings are the available columns in table '{{user_role}}':
  * @property integer $id
- * @property string $name
+ * @property integer $user_id
+ * @property integer $role_id
  *
  * The followings are the available model relations:
- * @property Users[] $users
+ * @property Users $user
+ * @property Role $role
  */
-class UserTypes extends CActiveRecord
+class UserRole extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return UserTypes the static model class
+	 * @return UserRole the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +29,7 @@ class UserTypes extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{user_types}}';
+		return '{{user_role}}';
 	}
 
 	/**
@@ -38,12 +40,11 @@ class UserTypes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, name', 'required'),
-			array('id', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>10),
+			array('user_id, role_id', 'required'),
+			array('user_id, role_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, user_id, role_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,7 +56,8 @@ class UserTypes extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'Users', 'type_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'role' => array(self::BELONGS_TO, 'Role', 'role_id'),
 		);
 	}
 
@@ -66,7 +68,8 @@ class UserTypes extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'user_id' => 'User',
+			'role_id' => 'Role',
 		);
 	}
 
@@ -82,7 +85,8 @@ class UserTypes extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('role_id',$this->role_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

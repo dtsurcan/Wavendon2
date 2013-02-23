@@ -1,24 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{user_notes}}".
+ * This is the model class for table "{{role}}".
  *
- * The followings are the available columns in table '{{user_notes}}':
+ * The followings are the available columns in table '{{role}}':
  * @property integer $id
- * @property string $date_create
- * @property string $date_modify
- * @property integer $user_id
- * @property string $text
+ * @property string $name
  *
  * The followings are the available model relations:
- * @property Users $user
+ * @property UserRole[] $userRoles
  */
-class UserNotes extends CActiveRecord
+class Role extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return UserNotes the static model class
+	 * @return Role the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +27,7 @@ class UserNotes extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return '{{user_notes}}';
+		return '{{role}}';
 	}
 
 	/**
@@ -41,11 +38,12 @@ class UserNotes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_create, date_modify, user_id, text', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
+			array('id, name', 'required'),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, date_create, date_modify, user_id, text', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +55,7 @@ class UserNotes extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'userRoles' => array(self::HAS_MANY, 'UserRole', 'role_id'),
 		);
 	}
 
@@ -68,10 +66,7 @@ class UserNotes extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'date_create' => 'Date Create',
-			'date_modify' => 'Date Modify',
-			'user_id' => 'User',
-			'text' => 'Text',
+			'name' => 'Name',
 		);
 	}
 
@@ -87,13 +82,18 @@ class UserNotes extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('date_create',$this->date_create,true);
-		$criteria->compare('date_modify',$this->date_modify,true);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('text',$this->text,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * Finds record by name field.
+	 */
+	public function findByName($name)
+	{
+		return $this->findByAttributes(array('name' => $name));
 	}
 }

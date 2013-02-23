@@ -10,6 +10,9 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 	<?php Yii::app()->bootstrap->register(); ?>
+	
+	<link href="<?php echo Yii::app()->theme->baseUrl; ?>/css/bootstrap-editable.css" rel="stylesheet">
+	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/bootstrap-editable.min.js"></script>
 </head>
 
 <body>
@@ -21,10 +24,11 @@
             'items'=>array(
                 array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                array('label'=>'Contact', 'url'=>array('/site/contact')),
+                array('label'=>'Contact', 'url'=>array('/site/contact'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'Profile', 'url'=>array('/user/profile'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Join us', 'url'=>array('/user/registry'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->getUser()->first_name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                array('label'=>'Logout ('.(@Yii::app()->user->getUser()->first_name).')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
         ),
     ),

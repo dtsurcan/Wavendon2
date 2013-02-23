@@ -67,4 +67,13 @@ class UserController extends Controller
 		
 		$this->render('registry', array('model' => $model));
 	}
+
+	/**
+	 * Profile page.
+	 */
+	public function actionProfile()
+	{
+		$this->render('profile', array('user' => Yii::app()->user->getUser()));
+	}
+	
 }

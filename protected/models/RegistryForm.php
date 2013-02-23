@@ -97,6 +97,11 @@ class RegistryForm extends CFormModel
 		
 		if ($new_user->save(false))
 		{
+			$role = new UserRole;
+			$role->user_id = $new_user->id;
+			$role->role_id = 1;
+			$role->save(false);
+			
 			$login_user = new LoginForm;
 			
 			$login_user->email = $this->email;
