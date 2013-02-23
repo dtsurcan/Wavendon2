@@ -1,0 +1,23 @@
+[23-Feb-2013 15:47:16] PHP Catchable fatal error:  Object of class CWebUser could not be converted to string in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 15:52:57] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 15:54:40] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 15:57:38] PHP Catchable fatal error:  Object of class Users could not be converted to string in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 15:57:57] PHP Catchable fatal error:  Object of class Users could not be converted to string in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 16:11:25] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 25
+[23-Feb-2013 16:11:25] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 25
+[23-Feb-2013 16:11:25] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 26
+[23-Feb-2013 16:11:25] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 26
+[23-Feb-2013 16:11:25] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 16:11:25] PHP Fatal error:  Call to a member function getUser() on a non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 16:12:19] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 25
+[23-Feb-2013 16:12:19] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 25
+[23-Feb-2013 16:12:19] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 26
+[23-Feb-2013 16:12:19] PHP Notice:  Trying to get property of non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 26
+[23-Feb-2013 16:12:19] PHP Notice:  Undefined property: CWebApplication::$user in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 16:12:19] PHP Fatal error:  Call to a member function getUser() on a non-object in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 27
+[23-Feb-2013 16:30:24] PHP Warning:  Missing argument 1 for WebUser::hasRole(), called in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 50 and defined in /var/www/local.wavendon.com/protected/components/WebUser.php on line 38
+[23-Feb-2013 16:30:24] PHP Notice:  Undefined variable: roles in /var/www/local.wavendon.com/protected/components/WebUser.php on line 45
+[23-Feb-2013 16:40:07] PHP Parse error:  syntax error, unexpected '=', expecting T_FUNCTION in /var/www/local.wavendon.com/protected/components/WebUser.php on line 37
+[23-Feb-2013 16:42:33] PHP Parse error:  syntax error, unexpected '=', expecting T_FUNCTION in /var/www/local.wavendon.com/protected/components/WebUser.php on line 37
+[23-Feb-2013 16:42:34] PHP Parse error:  syntax error, unexpected '=', expecting T_FUNCTION in /var/www/local.wavendon.com/protected/components/WebUser.php on line 37
+[23-Feb-2013 16:42:40] PHP Parse error:  syntax error, unexpected '=', expecting T_FUNCTION in /var/www/local.wavendon.com/protected/components/WebUser.php on line 37

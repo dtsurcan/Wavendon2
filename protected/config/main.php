@@ -40,6 +40,7 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'class'=>'WebUser'
 		),
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=wavendon',
@@ -47,7 +48,7 @@ return array(
 			'username' => 'root',
 			'password' => '12345',
 			'charset' => 'utf8',
-			'tablePrefix' => '',
+			'tablePrefix' => 'wd_',
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

@@ -62,6 +62,12 @@ class SiteController extends Controller
 				$this->refresh();
 			}
 		}
+		
+		/*
+		 if(Yii::app()->user->hasRole('client')){
+			echo 1;
+		};
+		*/
 		$this->render('contact',array('model'=>$model));
 	}
 

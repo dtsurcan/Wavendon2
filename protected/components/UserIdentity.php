@@ -8,14 +8,28 @@
 class UserIdentity extends CUserIdentity
 {
 	private $_id;
-
+	public  $email;
+	
+    /**
+     * __construct
+     *
+     * @param mixed $email user email
+     * @param mixed $password password
+     * @return void
+     */
+    public function __construct($email, $password)
+    {
+        $this->email = $email;
+        $this->password = $password;
+    }
+	
 	/**
 	 * Authenticates a user.
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate()
 	{
-		$user=User::model()->find('LOWER(username)=?',array(strtolower($this->username)));
+		$user=Users::model()->find('LOWER(email)=?',array(strtolower($this->email)));
 		if($user===null)
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		else if(!$user->validatePassword($this->password))
@@ -23,7 +37,7 @@ class UserIdentity extends CUserIdentity
 		else
 		{
 			$this->_id=$user->id;
-			$this->username=$user->username;
+			$this->email=$user->email;
 			$this->errorCode=self::ERROR_NONE;
 		}
 		return $this->errorCode==self::ERROR_NONE;
