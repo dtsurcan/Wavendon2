@@ -3,3 +3,7 @@
 [24-Feb-2013 18:34:12] PHP Parse error:  syntax error, unexpected ';' in /var/www/local.wavendon.com/protected/controllers/UserController.php on line 92
 [24-Feb-2013 18:47:00] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /var/www/local.wavendon.com/framework/web/CActiveDataProvider.php on line 176
 [24-Feb-2013 22:44:11] PHP Parse error:  syntax error, unexpected T_ENCAPSED_AND_WHITESPACE, expecting T_STRING or T_VARIABLE or T_NUM_STRING in /var/www/local.wavendon.com/protected/controllers/UserController.php on line 151
+[24-Feb-2013 23:05:15] PHP Warning:  require(/var/www/local.wavendon.com/protected/config/main.php): failed to open stream: Permission denied in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
+[24-Feb-2013 23:05:15] PHP Fatal error:  require(): Failed opening required '/var/www/local.wavendon.com/protected/config/main.php' (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
+[24-Feb-2013 23:05:17] PHP Warning:  require(/var/www/local.wavendon.com/protected/config/main.php): failed to open stream: Permission denied in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
+[24-Feb-2013 23:05:17] PHP Fatal error:  require(): Failed opening required '/var/www/local.wavendon.com/protected/config/main.php' (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
