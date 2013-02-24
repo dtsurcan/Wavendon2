@@ -15,6 +15,9 @@
  */
 class UserPhotos extends CActiveRecord
 {
+	
+	public $link;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -41,12 +44,13 @@ class UserPhotos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('date_create, user_id, link', 'required'),
+			//array('date_create, user_id, link', 'required'),
 			array('user_id, primary', 'numerical', 'integerOnly'=>true),
-			array('link', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, date_create, user_id, link, primary', 'safe', 'on'=>'search'),
+			
+			array('link', 'file', 'types'=>'jpg, gif, png'),
 		);
 	}
 
@@ -71,7 +75,7 @@ class UserPhotos extends CActiveRecord
 			'id' => 'ID',
 			'date_create' => 'Date Create',
 			'user_id' => 'User',
-			'link' => 'Link',
+			'link' => 'Select a photo',
 			'primary' => 'Primary',
 		);
 	}
@@ -96,5 +100,22 @@ class UserPhotos extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	/**
+	 * Check if user want delete his image.
+	 * @return boolean
+	 */
+	public function checkId($image_id, $user_id)
+	{
+		$image = null;
+		if ($image_id == null)
+			return true;
+
+		$image = $this->findByPk($image_id);
+		if ($image == null || $image->user_id != $user_id)
+			return false;
+
+		return true;
 	}
 }
