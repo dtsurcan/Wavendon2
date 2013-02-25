@@ -101,7 +101,27 @@ class UserPhotos extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
+	/**
+	 * Check if user want delete his image.
+	 * @return boolean
+	 */
+	public function checkIds($image_ids, $user_id)
+	{
+		if (count($image_ids) == 0)
+			return true;
+
+		foreach ($image_ids as $image_id)
+		{
+			if ($this->checkId($image_id, $user_id))
+				return true;
+			else
+				return false;
+		}
+
+		return true;
+	}
+		
 	/**
 	 * Check if user want delete his image.
 	 * @return boolean
@@ -116,6 +136,33 @@ class UserPhotos extends CActiveRecord
 		if ($image == null || $image->user_id != $user_id)
 			return false;
 
+		return true;
+	}
+
+	
+	/**
+	 * Remove copies of driving.
+	 */
+	public function removeImages($ids)
+	{
+		foreach ($ids as $id)
+		{
+			if (!$this->removeImage($id))
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Remove copy of driving.
+	 */
+	public function removeImage($id)
+	{
+		$image = $this->findByPk($id);
+		@unlink('images/photos/'.$image->user_id.'/'.$image->link);
+		if (!$image->delete())
+			return false;
+		
 		return true;
 	}
 }

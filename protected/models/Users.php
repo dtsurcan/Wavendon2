@@ -213,4 +213,12 @@ class Users extends CActiveRecord
 		$salt.=strtr(substr(base64_encode($rand),0,22),array('+'=>'.'));
 		return $salt;
 	}
+
+	/**
+	 * Loads user.
+	 */
+	public function load($id)
+	{
+		return $this->findByPk($id);
+	}
 }

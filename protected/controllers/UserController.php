@@ -140,30 +140,63 @@ class UserController extends Controller
         } 
 	}
 	
+	/**
+	 * Remove image.
+	 */
 	public function actionRemoveImage()
 	{
 		if(!Yii::app()->user->hasRole('Admin, Tenant, Guarantor, Landlord, User'))
 	    	CommonUtils::ajaxNotLoggedIn();
 		
-		$image_id = isset($_POST['id']) ? intval($_POST['id']) : null;
-		$type = isset($_POST['type']) ? intval($_POST['type']) : null;
+		$image_ids = isset($_POST['ids']) ? $_POST['ids'] : null;
+		$type = isset($_POST['type']) ? $_POST['type'] : null;
 		
 		switch ($type) {
-			case 1:
+			case 'delete-driving-form':
 				$model = new UserCopiesOfDriving;
 				break;
-			case 2:
+			case 'delete-passport-form':
 				$model = new UserCopiesOfPassport;
 				break;
-			case 3:
+			case 'delete-photos-form':
 				$model = new UserPhotos;
 				break;
 		}
 		
 		if (!Yii::app()->user->hasRole('Admin'))
-			if (isset($model) && !$model->checkId($image_id, Yii::app()->user->getUser()->id))
+			if (!isset($model) || !$model->checkIds(explode(',', $image_ids), Yii::app()->user->getUser()->id))
 	    		CommonUtils::ajaxIncorrectRequest();
 		
+		if (!$model->removeImages(explode(',', $image_ids)))
+			CommonUtils::ajaxError('Failed to remove image.');	
+				
 		CommonUtils::ajaxOK(array('resp'=>'ok'));
+	}
+
+	/**
+	 * Update user info.
+	 */
+	public function actionUpdate()
+	{
+	  	if(Yii::app()->request->isPostRequest) 
+	  	{	        	
+	        $model = Yii::app()->user->getUser();
+			
+			$post[$_POST['name']] = $_POST['value'];
+	        $model->attributes = $post;
+			$model->date_update	= Yii::app()->dateFormatter->format('yyyy-MM-dd H:m:ss', time());
+			
+			if ($_POST['name'] == 'note')
+				$model->date_note_update = Yii::app()->dateFormatter->format('yyyy-MM-dd H:m:ss', time());
+			
+	        if($model->save(false)) {
+	            echo CJSON::encode(array('id' => $model->title_id));
+	        } else {
+	            $errors = array_map(function($v){ return join(', ', $v); }, $model->getErrors());
+	            echo CJSON::encode(array('errors' => $errors));
+	        }
+	    } else {
+	      throw new CHttpException(400, 'Invalid request');  
+    	}
 	}
 }

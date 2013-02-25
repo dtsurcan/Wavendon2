@@ -16,6 +16,7 @@ class RegistryForm extends CFormModel
 	public $email;
 	public $password;
 	public $password_repeat;
+	public $note;
 	
 	public $verifyCode;
 
@@ -35,7 +36,7 @@ class RegistryForm extends CFormModel
 			array('password, password_repeat', 'validate_passwords'),
 			array('email', 'validate_email'),
 			
-			array('id, title_id, first_name, middle_name, last_name, type_id, passport_number, driving_license_number, email, password, date_create, date_update', 'safe'),
+			array('id, title_id, first_name, middle_name, last_name, type_id, passport_number, driving_license_number, email, password, date_create, date_update, note', 'safe'),
 		
 		);
 	}
@@ -112,6 +113,27 @@ class RegistryForm extends CFormModel
 			
 			return false;
 		}
+		
+		return false;
+	}
+
+	/**
+	 * Update user in the model.
+	 * @return boolean whether registry is successful
+	 */
+	public function update($user)
+	{
+		$user->title_id 				= $this->title_id;
+		$user->first_name 				= $this->first_name;
+		$user->middle_name 				= $this->middle_name;
+		$user->last_name 				= $this->last_name;
+		$user->passport_number 			= $this->passport_number;
+		$user->driving_license_number 	= $this->driving_license_number;
+		$user->note 					= $this->note;
+		$user->date_update				= Yii::app()->dateFormatter->format('yyyy-MM-dd H:m:ss', time());
+		
+		if ($user->save(false))
+			return true;
 		
 		return false;
 	}

@@ -7,3 +7,9 @@
 [24-Feb-2013 23:05:15] PHP Fatal error:  require(): Failed opening required '/var/www/local.wavendon.com/protected/config/main.php' (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
 [24-Feb-2013 23:05:17] PHP Warning:  require(/var/www/local.wavendon.com/protected/config/main.php): failed to open stream: Permission denied in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
 [24-Feb-2013 23:05:17] PHP Fatal error:  require(): Failed opening required '/var/www/local.wavendon.com/protected/config/main.php' (include_path='.:/usr/share/php:/usr/share/pear') in /var/www/local.wavendon.com/framework/base/CApplication.php on line 133
+[25-Feb-2013 13:40:57] PHP Fatal error:  Call to a member function hasErrors() on a non-object in /var/www/local.wavendon.com/protected/extensions/bootstrap/widgets/input/TbInput.php on line 361
+[25-Feb-2013 13:41:47] PHP Fatal error:  Call to a member function hasErrors() on a non-object in /var/www/local.wavendon.com/protected/extensions/bootstrap/widgets/input/TbInput.php on line 361
+[25-Feb-2013 13:48:14] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
+[25-Feb-2013 13:48:16] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
+[25-Feb-2013 13:48:17] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
+[25-Feb-2013 13:48:32] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132

@@ -4,9 +4,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
-	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/common.js"></script>
 	
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
@@ -31,6 +28,10 @@
 	<link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/addition/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
 	<script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/addition/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
+    <!-- Add custom -->
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
+	<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/common.js"></script>
+	
 </head>
 
 <body>
