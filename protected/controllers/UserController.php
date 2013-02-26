@@ -178,6 +178,9 @@ class UserController extends Controller
 	 */
 	public function actionUpdate()
 	{
+		if(!Yii::app()->user->hasRole('Admin, Tenant, Guarantor, Landlord, User'))
+	    	CommonUtils::ajaxNotLoggedIn();
+			
 	  	if(Yii::app()->request->isPostRequest) 
 	  	{	        	
 	        $model = Yii::app()->user->getUser();
@@ -199,4 +202,53 @@ class UserController extends Controller
 	      throw new CHttpException(400, 'Invalid request');  
     	}
 	}
+
+	/**
+	 * View user profile from user_id.
+	 */
+	 public function actionView()
+	 {	 	
+	 	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : Yii::app()->user->getUser()->id;
+		
+		$user = Yii::app()->user->getUser();
+		$not_found = 0;
+		if ($user_id != Yii::app()->user->getUser()->id)
+		{
+			$user = new Users;
+			if (!$user = $user->getUser($user_id))
+				$not_found = 1;
+				
+		}
+		
+		$copy_driving = new UserCopiesOfDriving;
+		$copy_passport = new UserCopiesOfPassport;
+		$photos = new UserPhotos;
+		
+		$dataCopiesOfDriving = new CActiveDataProvider('UserCopiesOfDriving', array(
+		    'criteria'=>array(
+		    		'condition'=>'user_id = :user_id',
+		        	'params'=>array(':user_id'=>$user->id),
+				),
+			));
+		
+		$dataCopiesOfPassport = new CActiveDataProvider('UserCopiesOfPassport', array(
+		    'criteria'=>array(
+		    	'condition'=>'user_id = :user_id',
+		        'params'=>array(':user_id'=>$user->id),
+		    ),));
+		
+		$dataPhotos = new CActiveDataProvider('UserPhotos', array(
+		    'criteria'=>array(
+		    	'condition'=>'user_id = :user_id',
+		        'params'=>array(':user_id'=>$user->id),
+		    ),));
+			
+		$this->render('view',array(
+			'user'					=> $user, 
+			'not_found'				=> $not_found,
+			'dataCopiesOfDriving' 	=> $dataCopiesOfDriving,
+			'dataCopiesOfPassport'	=> $dataCopiesOfPassport,
+			'dataPhotos' 			=> $dataPhotos,
+			));
+	 }
 }

@@ -13,3 +13,5 @@
 [25-Feb-2013 13:48:16] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
 [25-Feb-2013 13:48:17] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
 [25-Feb-2013 13:48:32] PHP Fatal error:  Call to undefined method CHtml::checkBoxField() in /var/www/local.wavendon.com/protected/views/user/profile.php on line 132
+[26-Feb-2013 19:03:09] PHP Fatal error:  Call to undefined function getUser() in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 59
+[26-Feb-2013 19:03:13] PHP Fatal error:  Call to undefined function getUser() in /var/www/local.wavendon.com/protected/views/layouts/main.php on line 59

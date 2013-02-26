@@ -58,8 +58,8 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
-				'post/<id:\d+>/<title:.*?>'=>'post/view',
-				'posts/<tag:.*?>'=>'post/index',
+				'user/view'=>'user/view',
+				'user/view/<user_id:.*?>'=>'user/view',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 				
 				'gii'=>'gii',

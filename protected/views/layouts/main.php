@@ -37,14 +37,28 @@
 <body>
 
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    'items'=>array(
+	'collapse'	=>true,
+    'items'		=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
                 array('label'=>'Home', 'url'=>array('/site/index')),
-                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                array('label'=>'Me', 'url'=>array('/user/view'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Contact', 'url'=>array('/site/contact'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Profile', 'url'=>array('/user/profile'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>'Profile', 'url'=>array('/user/profile'), 'visible'=>!Yii::app()->user->isGuest),  
+             	array('label'=>'Controls', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Block'),
+                    array('label'=>'Add new block', 'url'=>'#'),
+                    array('label'=>'View blocks', 'url'=>'#'),
+                    array('label'=>'Room'),
+                    array('label'=>'Add new room', 'url'=>'#'),
+                    array('label'=>'View rooms', 'url'=>'#'),
+                    array('label'=>'Property'),
+                    array('label'=>'Add new property', 'url'=>'#'),
+                    array('label'=>'View properties', 'url'=>'#'),
+                ), 'visible'=>@Yii::app()->user->getUser()->hasRole('Landlord')),   
+                array('label'=>'Tenant', 'url'=>array('/guarantor/tenants'), 'visible'=>@Yii::app()->user->getUser()->hasRole('Guarantor')),            
+                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Join us', 'url'=>array('/user/registry'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.(@Yii::app()->user->getUser()->first_name).')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

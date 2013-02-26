@@ -215,10 +215,19 @@ class Users extends CActiveRecord
 	}
 
 	/**
-	 * Loads user.
+	 * Get user if exist.
 	 */
-	public function load($id)
+	public function getUser($id)
 	{
 		return $this->findByPk($id);
+	}
+
+	/**
+	 * Get role.
+	 */
+	public function getRole()
+	{
+		$user_role = new UserRole;		
+		return $user_role->findByAttributes(array('user_id' => $this->id));
 	}
 }

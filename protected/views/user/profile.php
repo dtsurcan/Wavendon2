@@ -2,10 +2,10 @@
 /* @var $this UserController */
 
 $this->breadcrumbs=array(
-	'My profile',
+	'Change profile',
 );
 ?>
-<h1>My profile</h1>
+<h1>Change profile</h1>
 
 <p>
 	
@@ -116,7 +116,7 @@ ob_end_clean();
 		$this->widget('bootstrap.widgets.TbThumbnails', array(
 		    'dataProvider'=>$dataCopiesOfDriving,
 		    'template'=>"{items}\n{pager}",
-		    'itemView'=>'_thumb',
+		    'itemView'=>'_thumb_wd',
 		));
 		$copy_driving_images = ob_get_contents();
 		ob_end_clean();
@@ -177,7 +177,7 @@ ob_end_clean();
 		$this->widget('bootstrap.widgets.TbThumbnails', array(
 		    'dataProvider'=>$dataCopiesOfPassport,
 		    'template'=>"{items}\n{pager}",
-		    'itemView'=>'_thumb',
+		    'itemView'=>'_thumb_wd',
 		));
 		$copy_passport_images = ob_get_contents();
 		ob_end_clean();
@@ -238,7 +238,7 @@ ob_end_clean();
 		$this->widget('bootstrap.widgets.TbThumbnails', array(
 		    'dataProvider'=>$dataPhotos,
 		    'template'=>"{items}\n{pager}",
-		    'itemView'=>'_thumb',
+		    'itemView'=>'_thumb_wd',
 		));
 		$photo_images = ob_get_contents();
 		ob_end_clean();
